@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vibelink | Social Media</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0095f6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%230095f6'/><path d='M256 120c-75.1 0-136 60.9-136 136s60.9 136 136 136 136-60.9 136-136-60.9-136-136-136zm0 216c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80zm96-180c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24z' fill='%23ffffff'/></svg>">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -26,6 +31,9 @@
                 <a href="#" onclick="openCreateModal()" class="nav-icon" title="Create">
                     <svg aria-label="New post" fill="currentColor" height="24" viewBox="0 0 24 24" width="24"><path d="M2 12v3.45c0 2.849.098 4.905.584 6.313.44 1.28.985 2.112 2.11 2.551 1.408.486 3.464.584 6.313.584h2.46c2.849 0 4.905-.098 6.313-.584 1.125-.439 1.67-1.27 2.11-2.551.486-1.408.584-3.464.584-6.313V12h-2v3.45c0 2.825-.096 4.805-.561 6.15-.369 1.072-.756 1.487-1.428 1.749-1.345.465-3.325.561-6.15.561H9.993c-2.825 0-4.805-.096-6.15-.561-.672-.262-1.059-.677-1.428-1.749C1.95 20.255 1.854 18.275 1.854 12V8.55c0-2.825.096-4.805.561-6.15.369-1.072.756-1.487 1.428-1.749 1.345-.465 3.325-.561 6.15-.561H12v-2H9.993c-2.849 0-4.905.098-6.313.584-1.125.439-1.67 1.27-2.11 2.551C1.084 3.645.986 5.7.986 8.55ZM10.5 8h-3v2h3v3h2v-3h3V8h-3V5h-2Z"></path></svg>
                 </a>
+                
+                <!-- Install PWA App Button -->
+                <button id="pwaInstallBtn" class="btn hidden" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 6px;">Install App</button>
                 
                 <!-- Profile/Avatar -->
                 <div class="nav-icon nav-avatar" onclick="window.location.href='profile.html'" id="navAvatar">U</div>
@@ -105,6 +113,26 @@
                 if (navAvatar) navAvatar.textContent = initial;
             }
             loadFeed();
+        });
+
+        // Register Service Worker & Handle PWA Install Prompt
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW registration failed:', err));
+        }
+
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const installBtn = document.getElementById('pwaInstallBtn');
+            if (installBtn) {
+                installBtn.classList.remove('hidden');
+                installBtn.addEventListener('click', () => {
+                    installBtn.classList.add('hidden');
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+                });
+            }
         });
     </script>
 </body>
