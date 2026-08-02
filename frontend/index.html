@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibelink | Social Media</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Vibelink</a>
+            
+            <div class="nav-links">
+                <!-- Home Icon -->
+                <a href="#" onclick="switchTab('home')" class="nav-icon" title="Home">
+                    <svg aria-label="Home" fill="currentColor" height="24" viewBox="0 0 24 24" width="24"><path d="M9.005 16.545a2.997 2.997 0 0 1 2.997-2.997A2.997 2.997 0 0 1 15 16.545V22h7V11.543L12 2 2 11.543V22h7.005Z"></path></svg>
+                </a>
+
+                <!-- Reels Icon -->
+                <a href="#" onclick="switchTab('reels')" class="nav-icon" title="Reels">
+                    <svg aria-label="Reels" fill="currentColor" height="24" viewBox="0 0 24 24" width="24"><path d="M5.888 22.5a3.46 3.46 0 0 1-1.721-.46l-.003-.002a3.451 3.451 0 0 1-1.72-2.982V4.943a3.445 3.445 0 0 1 5.163-2.987l12.226 7.059a3.444 3.444 0 0 1-.001 5.967l-12.22 7.056a3.462 3.462 0 0 1-1.724.462Z"></path></svg>
+                </a>
+
+                <!-- Create Icon -->
+                <a href="#" onclick="openCreateModal()" class="nav-icon" title="Create">
+                    <svg aria-label="New post" fill="currentColor" height="24" viewBox="0 0 24 24" width="24"><path d="M2 12v3.45c0 2.849.098 4.905.584 6.313.44 1.28.985 2.112 2.11 2.551 1.408.486 3.464.584 6.313.584h2.46c2.849 0 4.905-.098 6.313-.584 1.125-.439 1.67-1.27 2.11-2.551.486-1.408.584-3.464.584-6.313V12h-2v3.45c0 2.825-.096 4.805-.561 6.15-.369 1.072-.756 1.487-1.428 1.749-1.345.465-3.325.561-6.15.561H9.993c-2.825 0-4.805-.096-6.15-.561-.672-.262-1.059-.677-1.428-1.749C1.95 20.255 1.854 18.275 1.854 12V8.55c0-2.825.096-4.805.561-6.15.369-1.072.756-1.487 1.428-1.749 1.345-.465 3.325-.561 6.15-.561H12v-2H9.993c-2.849 0-4.905.098-6.313.584-1.125.439-1.67 1.27-2.11 2.551C1.084 3.645.986 5.7.986 8.55ZM10.5 8h-3v2h3v3h2v-3h3V8h-3V5h-2Z"></path></svg>
+                </a>
+                
+                <!-- Profile/Avatar -->
+                <div class="nav-icon nav-avatar" onclick="window.location.href='profile.html'" id="navAvatar">U</div>
+                
+                <!-- Logout Icon (using a standard exit icon) -->
+                <div class="nav-icon" id="logoutBtn" title="Logout">
+                    <svg aria-label="Logout" fill="currentColor" height="24" viewBox="0 0 24 24" width="24"><path d="M12 2.5a9.5 9.5 0 0 0-9.5 9.5 9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5ZM12 20a8 8 0 1 1 8-8 8 8 0 0 1-8 8Zm3-8a.75.75 0 0 1-.75.75H8.75a.75.75 0 0 1 0-1.5h5.5A.75.75 0 0 1 15 12Zm-2.22-3.28a.75.75 0 0 1 1.06 0l2.5 2.5a.75.75 0 0 1 0 1.06l-2.5 2.5a.75.75 0 1 1-1.06-1.06l1.97-1.97-1.97-1.97a.75.75 0 0 1 0-1.06Z" fill-rule="evenodd"></path></svg>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="feed-wrapper">
+            
+            <!-- Stories Section -->
+            <div id="stories-container" class="stories-container hidden">
+                <!-- Stories injected via JS -->
+            </div>
+
+            <!-- Feed Container (Posts) -->
+            <div id="home-feed" class="section-container">
+                <div id="feed" class="feed">
+                    <!-- Posts will be injected here via JS -->
+                </div>
+            </div>
+
+            <!-- Reels Container -->
+            <div id="reels-feed" class="section-container hidden">
+                <div id="reels" class="reels-wrapper">
+                    <!-- Reels will be injected here via JS -->
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Create Modal -->
+    <div id="createModal" class="create-modal hidden">
+        <div class="create-modal-content">
+            <div class="create-modal-header">
+                <h3>Create</h3>
+                <span class="create-modal-close" onclick="closeCreateModal()">&times;</span>
+            </div>
+            <div class="create-modal-tabs">
+                <div class="create-tab active" onclick="switchCreateTab('post')">Post</div>
+                <div class="create-tab" onclick="switchCreateTab('story')">Story</div>
+                <div class="create-tab" onclick="switchCreateTab('reel')">Reel</div>
+            </div>
+            <div class="create-modal-body">
+                <div class="media-upload-btn">
+                    <label for="mediaInput" class="btn btn-secondary" style="width:100%; display:block; text-align:center;">
+                        Select Photo/Video
+                    </label>
+                    <input type="file" id="mediaInput" class="hidden" accept="image/*,video/*">
+                </div>
+                <div id="mediaFileName" style="text-align:center; font-size: 0.85rem; color: var(--text-secondary); margin-bottom:15px;">No file selected</div>
+                
+                <input type="text" id="postContent" placeholder="Write a caption..." style="width:100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 15px;">
+                
+                <button id="submitPostBtn" class="btn" style="width: 100%;">Share</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!isAuthenticated()) {
+                window.location.href = 'login.html';
+                return;
+            }
+            const user = getCurrentUser();
+            if (user) {
+                const initial = user.username.charAt(0).toUpperCase();
+                const navAvatar = document.getElementById('navAvatar');
+                if (navAvatar) navAvatar.textContent = initial;
+            }
+            loadFeed();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login &bull; Vibelink</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1 class="logo">Vibelink</h1>
+
+            <div id="authAlert" class="alert hidden"></div>
+
+            <form id="authForm">
+                <div class="form-group">
+                    <input type="text" id="username" class="form-control" placeholder="Username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" class="form-control" placeholder="Password" required autocomplete="current-password">
+                </div>
+                
+                <button type="submit" id="authSubmitBtn" class="btn" style="margin-top: 10px;">Log in</button>
+            </form>
+        </div>
+
+        <div class="auth-switch">
+            <span id="authToggleText">Don't have an account?</span> 
+            <a href="#" id="authToggleBtn" style="font-weight: 600;">Sign up</a>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        let isLogin = true;
+
+        document.getElementById('authToggleBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            isLogin = !isLogin;
+            document.getElementById('authSubmitBtn').textContent = isLogin ? 'Log in' : 'Sign up';
+            document.getElementById('authToggleText').textContent = isLogin ? "Don't have an account?" : "Have an account?";
+            document.getElementById('authToggleBtn').textContent = isLogin ? 'Sign up' : 'Log in';
+            document.getElementById('authAlert').classList.add('hidden');
+        });
+
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('authSubmitBtn');
+            const alert = document.getElementById('authAlert');
+            
+            btn.disabled = true;
+            btn.textContent = 'Please wait...';
+            
+            try {
+                const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    if (!isLogin) {
+                        alert.classList.remove('hidden');
+                        alert.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+                        alert.style.color = 'var(--success)';
+                        alert.textContent = 'Registration successful! Please log in.';
+                        isLogin = true;
+                        document.getElementById('authSubmitBtn').textContent = 'Log in';
+                        document.getElementById('authToggleText').textContent = "Don't have an account?";
+                        document.getElementById('authToggleBtn').textContent = 'Sign up';
+                    } else {
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('user', JSON.stringify({ id: data.userId, username: data.username }));
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    alert.classList.remove('hidden');
+                    alert.style.backgroundColor = 'rgba(237, 73, 86, 0.1)';
+                    alert.style.color = 'var(--danger)';
+                    alert.textContent = data.error || 'An error occurred';
+                }
+            } catch (err) {
+                alert.classList.remove('hidden');
+                alert.style.backgroundColor = 'rgba(237, 73, 86, 0.1)';
+                alert.style.color = 'var(--danger)';
+                alert.textContent = 'Server error. Please try again later.';
+            } finally {
+                btn.disabled = false;
+                if (!isLogin && response && response.ok) {
+                   btn.textContent = 'Log in';
+                } else {
+                   btn.textContent = isLogin ? 'Log in' : 'Sign up';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
