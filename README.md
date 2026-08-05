@@ -4,11 +4,11 @@ A full-stack Instagram-inspired social media application built with **Node.js**,
 
 ---
 
-## 🌐 Live Demo & Working Links
+## 🌐 Live Deployed Application
 
-- 🔗 **Live Web Application:** [https://vibelink-app.loca.lt](https://vibelink-app.loca.lt) *(IP Bypass Code: `103.100.223.29`)*
+- 🔗 **Direct Live Link (Accessible on Any Device):** [https://1ab6d41c0dfc26.lhr.life](https://1ab6d41c0dfc26.lhr.life)
 - 💻 **GitHub Repository:** [https://github.com/Rakshi0212/Code_Alpha_Social-Media-Platform](https://github.com/Rakshi0212/Code_Alpha_Social-Media-Platform)
-- 📱 **Installable Mobile & Desktop App:** Open the live link in Chrome/Safari and click **"Install App"** / **"Add to Home Screen"**.
+- 📱 **Installable Mobile & Desktop App:** Open the live link on Chrome/Safari and click **"Install App"** / **"Add to Home Screen"**.
 
 ---
 
