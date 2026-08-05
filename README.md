@@ -6,7 +6,7 @@ A full-stack Instagram-inspired social media application built with **Node.js**,
 
 ## 🌐 Live Deployed Application
 
-- 🔗 **Direct Live Link (Accessible on Any Device):** [https://1ab6d41c0dfc26.lhr.life](https://1ab6d41c0dfc26.lhr.life)
+- 🔗 **Direct Live Link (Accessible on Any Device):** [https://c44658e28fd5fe.lhr.life](https://c44658e28fd5fe.lhr.life)
 - 💻 **GitHub Repository:** [https://github.com/Rakshi0212/Code_Alpha_Social-Media-Platform](https://github.com/Rakshi0212/Code_Alpha_Social-Media-Platform)
 - 📱 **Installable Mobile & Desktop App:** Open the live link on Chrome/Safari and click **"Install App"** / **"Add to Home Screen"**.
 
